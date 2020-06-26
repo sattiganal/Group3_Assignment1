@@ -55,7 +55,14 @@ namespace Group3_Assignment1
 
         private static void solveQuestion2()
         {
+            Console.WriteLine("!!!!!!!!!!!!!  Solving Question#2  !!!!!!!!!!!!!!");
+            Console.WriteLine("****  Please Enter a Sentence below for Reverse String Operation *****");
+            string reverseString = " ";
+            String inputString = Console.ReadLine();                       // Input string read from the console
+            Console.WriteLine("Input Entered String  : " + inputString);   // Write input string to the console 
 
+            reverseString = StringReverse(inputString);                   // Call custom built function to reverse the string
+            Console.WriteLine("Output Reverse String : " + reverseString); // Write output reverse string to the console                        
         }
 
         
@@ -129,6 +136,45 @@ namespace Group3_Assignment1
                 }
             }
             return false; // We didn't find anything satisfyng the condition
+        }
+
+
+        public static string StringReverse(string s)          // Function declaration for performing reverse string operation
+        {
+
+            int n = 1;
+            int p = 0;
+            int x = 0;
+            String finalString = "";
+            String tempVar = " ";
+            for (int i = 0; i < s.Length; i++)                      // Perform the loop for length of input string times
+            {
+                if (s.Substring(i, 1) == " ")                       // For every space in the sentence increment the counter n to know how many words are in the sentence
+                    n++;
+            }
+            String[] indWords = new string[n];                     // Use the above counter n to declare the String array size
+            for (int i = 0; i < s.Length; i++)                     // Pefrome the loop until the length of input string times.
+            {
+                if ((s.Substring(i, 1) == " ") || (i == (s.Length - 1)))     // When space is encountered in the sentence or last word of the sentence
+                {
+                    if (i == (s.Length - 1))                         //if last byte in the sentence
+                        tempVar = s.Substring(x, i - x + 1) + " ";   // assign temp variable with last word appending a space
+                    else if (x == 0)                                   // For the first word of the sentence don't count the space
+                        tempVar = s.Substring(x, i - x);
+                    else                                            // if not last byte in the sentence or first word
+                        tempVar = s.Substring(x, i - x + 1);        // assign temp variable with the word in the sentence
+
+                    for (int j = 0; j < tempVar.Length; j++)        // perform the loop until the length of tempVar .i.e. length of a word in the sentence 
+                    {
+                        indWords[p] = indWords[p] + tempVar.Substring(tempVar.Length - j - 1, 1);  //populate array occurance with each reverse word from the sentence
+                    }
+                    finalString = finalString + indWords[p];   // Concatenate each reversed word from the sentence into finalString variable
+                    p++;                                       // increment the array
+                    x = i + 1;                                 // counter to process next word .i.e. index of next word in the sentence)
+                }
+
+            }
+            return finalString;                              //return the reverse string to the main method
         }
 
     }
