@@ -13,39 +13,10 @@ namespace Group3_Assignment1
             Console.WriteLine("Assignment 1 from Group 3");
             solveQuestion1();
             solveQuestion2();
-
-            // ##### Start solution for Question 3
-            Console.WriteLine("##### Solving Question 3");
-            int[] numberArray = { -1, -1, -1, 2, 2 }; // Sorted numbers array to work with
-            Console.Write("User array - { "); // Print the user supplied array
-            for (int i = 0; i < numberArray.Length; i++)
-            {
-                Console.Write(numberArray[i]);
-                Console.Write(" ");
-            }
-            Console.WriteLine("}");
-            minSum(numberArray); // Call the method to adjust array and calculate the minimum sum
-            Console.WriteLine("");
-            // ##### End solution for Question 3
-
+            solveQuestion3();
             solveQuestion4();
             solveQuestion5();
-
-            // ##### Start solution for Question 6
-            Console.WriteLine("##### Solving Question 6");
-            char[] charArray = {'k','y','k','k'}; // Character array
-            int k = 1; // 
-            Console.Write("User array - { "); // Print the user supplied array
-            for (int i = 0; i < charArray.Length; i++)
-            {
-                Console.Write(charArray[i]);
-                Console.Write(" ");
-            }
-            Console.WriteLine("}");
-            // Check for a[i] = a[j] such that (i-j) <= k
-            Console.WriteLine(new Program().ContainsDuplicate(charArray, k));
-            Console.WriteLine("");
-            // ##### End solution for Question 6
+            solveQuestion6();
         }
 
 
@@ -124,6 +95,22 @@ namespace Group3_Assignment1
             Console.WriteLine("Output Reverse String : " + reverseString); // Write output reverse string to the console                        
         }
 
+        private static void solveQuestion3()
+        {
+            // ##### Start solution for Question 3
+            Console.WriteLine("##### Solving Question 3");
+            int[] numberArray = { -1, -1, -1, 2, 2 }; // Sorted numbers array to work with
+            Console.Write("User array - { "); // Print the user supplied array
+            for (int i = 0; i < numberArray.Length; i++)
+            {
+                Console.Write(numberArray[i]);
+                Console.Write(" ");
+            }
+            Console.WriteLine("}");
+            minSum(numberArray); // Call the method to adjust array and calculate the minimum sum
+            Console.WriteLine("");
+            // ##### End solution for Question 3
+        }
         
         private static void minSum(int[] numberArray)
         {
@@ -211,6 +198,25 @@ namespace Group3_Assignment1
         private static void solveQuestion5()
         {
 
+        }
+
+        private static void solveQuestion6()
+        {
+            // ##### Start solution for Question 6
+            Console.WriteLine("##### Solving Question 6");
+            char[] charArray = {'k','y','k','k'}; // Character array
+            int k = 1; // 
+            Console.Write("User array - { "); // Print the user supplied array
+            for (int i = 0; i < charArray.Length; i++)
+            {
+                Console.Write(charArray[i]);
+                Console.Write(" ");
+            }
+            Console.WriteLine("}");
+            // Check for a[i] = a[j] such that (i-j) <= k
+            Console.WriteLine(new Program().ContainsDuplicate(charArray, k));
+            Console.WriteLine("");
+            // ##### End solution for Question 6
         }
 
         public bool ContainsDuplicate(char[] arr, int k)
