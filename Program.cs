@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
@@ -50,7 +51,65 @@ namespace Group3_Assignment1
 
         private static void solveQuestion1()
         {
+            try
+            {
+                //Instantiate dictionary object
+                Dictionary<int, int> NumberDictionary = new Dictionary<int, int>();  
 
+                //variables
+                int numberToFind;  
+                string foundKeys = "";
+
+                //Add numbers to the dictionary
+                NumberDictionary.Add(1, 1);
+                NumberDictionary.Add(2, 2);
+                NumberDictionary.Add(3, 3);
+                NumberDictionary.Add(4, 2);
+                NumberDictionary.Add(5, 1);
+                NumberDictionary.Add(6, 3);
+                NumberDictionary.Add(7, 4);
+                NumberDictionary.Add(8, 2);
+                NumberDictionary.Add(9, 1);
+                NumberDictionary.Add(10, 5);
+                NumberDictionary.Add(11, 4);
+
+                //Prompt for integer 1-5
+                Console.WriteLine("The dictionary contains numbers 1-5. Enter the integer to search in the dictionary to find the keys");
+                numberToFind = Convert.ToInt16(Console.ReadLine());
+
+                //Loop through dictionary and build string with keys for matching values
+                foreach (KeyValuePair<int, int> element in NumberDictionary)
+                {
+                    if (numberToFind == element.Value)
+                    {
+                        if (foundKeys == "")
+                        {
+                            foundKeys = "[" + element.Key;
+                        }
+                        else
+                        {
+                            foundKeys = foundKeys + ", " + element.Key;
+                        }
+                    }
+                }
+
+                //Display results
+                Console.WriteLine();
+                if (foundKeys == "")
+                {
+                    Console.WriteLine("The number " + numberToFind + " is NOT contained in the dictionary of numbers");
+                }
+                else
+                {
+                    Console.WriteLine("The number " + numberToFind + " is contained at keys " + foundKeys + "]");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                //Show error message for incorrect entry
+                Console.WriteLine("You did not enter an integer between 1 and 5. " + ex.Message);
+            }
         }
 
         private static void solveQuestion2()
@@ -99,7 +158,54 @@ namespace Group3_Assignment1
 
         private static void solveQuestion4()
         {
+            try
+            {
+                string sStart; //Variable to hold string from user entry
+                Console.WriteLine("Enter a string and the application will return the characters by the frequency they occur.");
+                //Read console entry into string variable
+                sStart = Console.ReadLine();
+                //Instantiate dictionary, will store the ascii value of the character in the key field and the count of character in the value
+                Dictionary<int, int> CharacterCountDictionary = new Dictionary<int, int>();
+                //Declare variables used in method              
+                int i = 1;
+                int ascii;
+                string sResult = "";
 
+                foreach (char c in sStart)
+                {
+                    //Loop converts characters to ascii value and enters in the dictionary.
+                    ascii = c;
+                    if (CharacterCountDictionary.ContainsKey(ascii))
+                    {
+                        //Character ascii value already exists in the dictionary, update the count by one
+                        CharacterCountDictionary[ascii] = CharacterCountDictionary[ascii] + 1;
+                    }
+                    else
+                    {
+                        //Character ascii value doesn't exist in the dictionary so add    
+                        CharacterCountDictionary.Add(ascii, i);
+                    }
+                }
+                //Sort the dictionary in decending order on the value field which contains the number of times the character appears in the string
+                foreach (KeyValuePair<int, int> element in CharacterCountDictionary.OrderByDescending(key => key.Value))
+                {
+                    //Value converted from ascii to and loops through count of characters building the output string sResult
+                    i = 1;
+                    while (i <= element.Value)
+                    {
+                        char c = Convert.ToChar(element.Key);
+                        sResult = sResult + c;
+                        i++;
+                    }
+
+                }
+                //Display resulting string
+                Console.WriteLine(sResult);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Please enter a string of characters" + ex.Message);
+            }
         }
 
         private static void solveQuestion5()
