@@ -48,21 +48,8 @@ namespace Group3_Assignment1
                 Console.WriteLine("The dictionary contains numbers 1-5. Enter the integer to search in the dictionary to find the keys");
                 numberToFind = Convert.ToInt16(Console.ReadLine());
 
-                //Loop through dictionary and build string with keys for matching values
-                foreach (KeyValuePair<int, int> element in NumberDictionary)
-                {
-                    if (numberToFind == element.Value)
-                    {
-                        if (foundKeys == "")
-                        {
-                            foundKeys = "[" + element.Key;
-                        }
-                        else
-                        {
-                            foundKeys = foundKeys + ", " + element.Key;
-                        }
-                    }
-                }
+                //Call method to search dictionary for number entered. Return the string of corresponding keys
+                foundKeys = findKeys(NumberDictionary, numberToFind);
 
                 //Display results
                 Console.WriteLine();
@@ -81,6 +68,28 @@ namespace Group3_Assignment1
                 //Show error message for incorrect entry
                 Console.WriteLine("You did not enter an integer between 1 and 5. " + ex.Message);
             }
+        }
+
+        private static string findKeys (Dictionary<int, int> NumberDictionary1, int numberToSearch)
+        {
+            //Prompt for integer 1-5
+            string strKeys = "";
+            
+            foreach (KeyValuePair<int, int> element in NumberDictionary1)
+            {
+                if (numberToSearch == element.Value)
+                {
+                    if (strKeys == "")
+                    {
+                        strKeys = "[" + element.Key;
+                    }
+                    else
+                    {
+                        strKeys = strKeys + ", " + element.Key;
+                    }
+                }
+            }
+            return strKeys;
         }
 
         private static void solveQuestion2()
@@ -156,8 +165,7 @@ namespace Group3_Assignment1
                 //Declare variables used in method              
                 int i = 1;
                 int ascii;
-                string sResult = "";
-
+                
                 foreach (char c in sStart)
                 {
                     //Loop converts characters to ascii value and enters in the dictionary.
@@ -173,26 +181,34 @@ namespace Group3_Assignment1
                         CharacterCountDictionary.Add(ascii, i);
                     }
                 }
-                //Sort the dictionary in decending order on the value field which contains the number of times the character appears in the string
-                foreach (KeyValuePair<int, int> element in CharacterCountDictionary.OrderByDescending(key => key.Value))
-                {
-                    //Value converted from ascii to and loops through count of characters building the output string sResult
-                    i = 1;
-                    while (i <= element.Value)
-                    {
-                        char c = Convert.ToChar(element.Key);
-                        sResult = sResult + c;
-                        i++;
-                    }
-
-                }
-                //Display resulting string
-                Console.WriteLine(sResult);
+                
+                //Display resulting string from method
+                Console.WriteLine(buildString(CharacterCountDictionary));
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Please enter a string of characters" + ex.Message);
             }
+        }
+
+        private static string buildString(Dictionary<int, int> CharacterCountDictionary1)
+        {
+            string sResult = "";
+            int i;
+            //Sort the dictionary in decending order on the value field which contains the number of times the character appears in the string
+            foreach (KeyValuePair<int, int> element in CharacterCountDictionary1.OrderByDescending(key => key.Value))
+            {
+                //Value converted from ascii to and loops through count of characters building the output string sResult
+                i = 1;
+                while (i <= element.Value)
+                {
+                    char c = Convert.ToChar(element.Key);
+                    sResult = sResult + c;
+                    i++;
+                }
+
+            }
+            return sResult;
         }
 
         private static void solveQuestion5()
