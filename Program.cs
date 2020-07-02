@@ -214,6 +214,50 @@ namespace Group3_Assignment1
         private static void solveQuestion5()
         {
 
+            Console.WriteLine("!!!!!!!!!!!!!  Solving Question#5  !!!!!!!!!!!!!!");
+
+            int[] nums1 = new int[] { };
+            int[] nums2 = new int[] { };
+
+            Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            Console.WriteLine("!!!!!!   Enter First numeric array of elements separated by a comma (,)    !!!!!!!!");
+            Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            try
+            {
+                nums1 = Array.ConvertAll(Console.ReadLine().Trim().Split(','), Convert.ToInt32);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Input must be Integer values separated by comma (,)" + e.Message);
+
+            }
+
+            Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            Console.WriteLine("!!!!!!   Enter Second numeric array of elements separated by a comma (,)   !!!!!!!!");
+            Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+
+            try
+            {
+                nums2 = Array.ConvertAll(Console.ReadLine().Trim().Split(','), Convert.ToInt32);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Input must be Integer values separated by comma (,)" + e.Message);
+
+            }
+
+
+            //--------------Solution 1-------------
+
+            int[] intersection = Intersect1(nums1, nums2);          // Call solution-1 methond  by passing two arrays to determine intersection
+
+
+            //--------------Solution 2-------------
+
+
+            int[] intersection2 = Intersect2(nums1, nums2);        // Call solution-2 methond  by passing two arrays to determine intersection                    
+
         }
 
         private static void solveQuestion6()
@@ -267,43 +311,153 @@ namespace Group3_Assignment1
         }
 
 
-        public static string StringReverse(string s)          // Function declaration for performing reverse string operation
+        //Method Solution for Question: 2  to Reverse a string
+        public static string StringReverse(string s)             // Function declaration for performing reverse string operation
         {
 
-            int n = 1;
-            int p = 0;
-            int x = 0;
             String finalString = "";
-            String tempVar = " ";
-            for (int i = 0; i < s.Length; i++)                      // Perform the loop for length of input string times
+            String tempVar = "";
+            string indWord = "";
+
+
+            string[] stringWords = s.Split(' ');         // Split the string into Array of words
+
+            for (int i = 0; i < stringWords.Length; i++)   // Perform the loop for number of words in the string
             {
-                if (s.Substring(i, 1) == " ")                       // For every space in the sentence increment the counter n to know how many words are in the sentence
-                    n++;
-            }
-            String[] indWords = new string[n];                     // Use the above counter n to declare the String array size
-            for (int i = 0; i < s.Length; i++)                     // Pefrome the loop until the length of input string times.
-            {
-                if ((s.Substring(i, 1) == " ") || (i == (s.Length - 1)))     // When space is encountered in the sentence or last word of the sentence
+                indWord = "";
+                tempVar = stringWords[i];
+                for (int j = 0; j < stringWords[i].Length; j++)           //perform the loop for each letter in each word of the string
                 {
-                    if (i == (s.Length - 1))                         //if last byte in the sentence
-                        tempVar = s.Substring(x, i - x + 1) + " ";   // assign temp variable with last word appending a space
-                    else if (x == 0)                                   // For the first word of the sentence don't count the space
-                        tempVar = s.Substring(x, i - x);
-                    else                                            // if not last byte in the sentence or first word
-                        tempVar = s.Substring(x, i - x + 1);        // assign temp variable with the word in the sentence
-
-                    for (int j = 0; j < tempVar.Length; j++)        // perform the loop until the length of tempVar .i.e. length of a word in the sentence 
-                    {
-                        indWords[p] = indWords[p] + tempVar.Substring(tempVar.Length - j - 1, 1);  //populate array occurance with each reverse word from the sentence
-                    }
-                    finalString = finalString + indWords[p];   // Concatenate each reversed word from the sentence into finalString variable
-                    p++;                                       // increment the array
-                    x = i + 1;                                 // counter to process next word .i.e. index of next word in the sentence)
+                    tempVar = stringWords[i].Substring(stringWords[i].Length - j - 1, 1);   //get the letters from the end to start of the word
+                    indWord = indWord + tempVar;                                         // concatenate the letters in reverse 
                 }
-
+                finalString = finalString + indWord + " ";       //concatenate the words with reverse string above
             }
-            return finalString;                              //return the reverse string to the main method
+
+            return finalString;                                 //return the reverse string to the main method
         }
 
+        //End of Method - Solution for Question: 2
+
+
+
+
+
+
+        //Method Solution-1 for Question: 5  (Returns intersection of two arrays)
+        /*This algorithm follows the Quasilinear time  time complexity. There are two nested loops that goes through two arrays.As the number of elements in each element increase the number
+         * of times the loop increases. This is O(n*m).
+         */
+        public static int[] Intersect1(int[] nums1, int[] nums2)    // Method declaration for Solution-1 finding array intersection
+        {
+            Array.Sort(nums1);                                      // Sort First array nums1
+            Array.Sort(nums2);                                      // Sort Second array nums2
+
+            int k = 0;
+            int outArrSize = 0;
+            int prevElement = 0;
+            int procDup = 0;
+            int compDup = 0;
+            if (nums1.Length < nums2.Length)                       // Check for smaller size array to assign it's size to the output intersection array
+            {
+                outArrSize = nums1.Length;
+                int[] tempArry = nums2;                            //Below three lines rearranges nums1 and nums2 array contents based on their sizes
+                nums2 = nums1;
+                nums1 = tempArry;
+            }
+            else
+                outArrSize = nums2.Length;
+
+            int[] outArr = new int[outArrSize];                 // Define output array for holding intersection elements
+
+            Console.Write("Intersection from Solution-1 : [");
+            foreach (int value1 in nums1)                       // Peform this for loop operation for each element in nums1 array
+            {
+                if (prevElement == value1)
+                {
+                    procDup++;
+                    compDup = procDup;
+                }
+                else
+                {
+                    procDup = 0;
+                    compDup = 0;
+                }
+
+                for (int i = 0; i < nums2.Length; i++)              // Perform this for loop operation for each element in nums2 array
+                {
+                    if (value1 == nums2[i])                     // If element of first array is equal to element of second array                        
+                    {
+                        if (compDup == 0)
+                        {
+
+                            if ((i <= nums1.Length) && (k != 0))    // If i is less than first array length or not first value in output array then seperate teh element with a comma(,)
+                                Console.Write(",");
+                            outArr[k] = value1;                     // populate output array with intersection element
+                            Console.Write(value1);
+                            k++;                                    // Increment the output array index number
+                            i = nums2.Length;                       // assign value of nums2 length to i to exit the loop
+                        }
+                        else
+                            compDup--;
+
+                    }
+
+                }
+                prevElement = value1;
+            }
+            Console.WriteLine("]");
+            Array.Resize(ref outArr, k);                      // Resize the array only to the size of actual intersection elements.
+            return outArr;                                    // Return output array with intersection elements
+
+
+        }
+
+        //End of Method - Solution-1 for Question: 5
+
+
+        //Method Solution-2 for Question: 5 (Returns intersection of two arrays)
+        /*This algorithm follows the linear time complexity. There is one loop in this method, as the number of intersection elements increase the number
+         * of times the loop increases. This is also referred as O(n).
+         */
+        public static int[] Intersect2(int[] nums1, int[] nums2)          // Method declaration for Solution-2 finding array intersection
+        {
+            int k = 0;
+            int outArrSize = 0;
+
+            if (nums1.Length < nums2.Length)                          // Check for smaller size array to assign it's size to the output intersection array
+            {
+                outArrSize = nums1.Length;
+                int[] tempArry = nums2;                                //Below three lines rearranges nums1 and nums2 array contents based on their sizes 
+                nums2 = nums1;
+                nums1 = tempArry;
+            }
+            else
+                outArrSize = nums2.Length;
+
+            int[] outArr = new int[outArrSize];                       // Define output array for holding intersection elements
+
+            HashSet<int> hsnums1 = new HashSet<int>(nums1);           // Declare hashset and assign first array nums1 to it
+
+
+            Console.Write("Intersection from Solution-2 : [");
+            for (int i = 0; i < nums2.Length; i++)                    // Perform this for loop operation for each element in nums2 array
+                if (hsnums1.Contains(nums2[i]))
+                {
+                    if ((i <= nums1.Length) && (k != 0))              // If i is less than first array length or not first value in output array then seperate teh element with a comma(,)
+                        Console.Write(",");
+                    Console.Write(nums2[i]);
+                    outArr[k] = nums2[i];                             // populate output array with intersection element
+                    k++;                                              // Increment the output array index number 
+                }
+
+            Console.Write("]");
+
+            Array.Resize(ref outArr, k);                              // Resize the array only to the size of actual intersection elements.
+            return outArr;                                            // Return output array with intersection elements
+
+        }
+        //End of Method - Solution-2 for Question: 5
+
     }
-}
+}  
