@@ -22,6 +22,8 @@ namespace Group3_Assignment1
 
         private static void solveQuestion1()
         {
+            // TODO : sync method name to be same as th eone in assignment.
+            // TODO : print only first and the last index if the element is found
             try
             {
                 //Instantiate dictionary object
@@ -94,6 +96,7 @@ namespace Group3_Assignment1
 
         private static void solveQuestion2()
         {
+            //TODO : Wait for Professor's response
             Console.WriteLine("!!!!!!!!!!!!!  Solving Question#2  !!!!!!!!!!!!!!");
             Console.WriteLine("****  Please Enter a Sentence below for Reverse String Operation *****");
             string reverseString = " ";
@@ -106,6 +109,7 @@ namespace Group3_Assignment1
 
         private static void solveQuestion3()
         {
+            // TODO : change to read from the console
             // ##### Start solution for Question 3
             Console.WriteLine("##### Solving Question 3");
             int[] numberArray = { -1, -1, -1, 2, 2 }; // Sorted numbers array to work with
@@ -154,6 +158,7 @@ namespace Group3_Assignment1
 
         private static void solveQuestion4()
         {
+            // TODO : Sync method name to be the same as assignment
             try
             {
                 string sStart; //Variable to hold string from user entry
@@ -213,6 +218,8 @@ namespace Group3_Assignment1
 
         private static void solveQuestion5()
         {
+            //TODO : Intersection1 --> look at the method for TODO
+            //TODO : Intersection2 --> Hashset may not work. Example run array1=4,4,6,6,9 array1=4,4,4
 
             Console.WriteLine("!!!!!!!!!!!!!  Solving Question#5  !!!!!!!!!!!!!!");
 
@@ -262,6 +269,7 @@ namespace Group3_Assignment1
 
         private static void solveQuestion6()
         {
+            // TODO : Read from console
             // ##### Start solution for Question 6
             Console.WriteLine("##### Solving Question 6.");
             char[] charArray = {'k','y','k','k'}; // Character array
@@ -350,6 +358,7 @@ namespace Group3_Assignment1
          */
         public static int[] Intersect1(int[] nums1, int[] nums2)    // Method declaration for Solution-1 finding array intersection
         {
+            // TODO : Since the arrays are sorted, we need to loop through the 2nd array completely
             Array.Sort(nums1);                                      // Sort First array nums1
             Array.Sort(nums2);                                      // Sort Second array nums2
 
