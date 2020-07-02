@@ -263,7 +263,7 @@ namespace Group3_Assignment1
         private static void solveQuestion6()
         {
             // ##### Start solution for Question 6
-            Console.WriteLine("##### Solving Question 6");
+            Console.WriteLine("##### Solving Question 6.");
             char[] charArray = {'k','y','k','k'}; // Character array
             int k = 1; // 
             Console.Write("User array - { "); // Print the user supplied array
@@ -291,7 +291,7 @@ namespace Group3_Assignment1
                 {
                     keepTrack.Add(currentChar, currentIndex); // Add to the map
                 }
-                else // If this character isn't in the map already => a[i] = a[j]
+                else // If this character is in the map already => a[i] = a[j]
                 {
                     int previousIndex = keepTrack.GetValueOrDefault(currentChar); // This gives us the previous position in the array
                     // If the difference is at most k => (i-j) <= k
@@ -300,7 +300,7 @@ namespace Group3_Assignment1
                         Console.WriteLine(previousIndex + " and " + currentIndex + " have the match such that a[i] = a[j] and (i-j) <= " + k);
                         return true; // We found it, so we return withoutchecking further
                     }
-                    else // Update the distionary to store the most recent position for character 
+                    else // Update the dictionary to store the most recent position for character 
                     {
                         keepTrack.Remove(currentChar);
                         keepTrack.Add(currentChar, currentIndex);
