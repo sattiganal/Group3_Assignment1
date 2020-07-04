@@ -23,8 +23,6 @@ namespace Group3_Assignment1
 
         private static void solveQuestion1()
         {
-            // TODO : sync method name to be same as th eone in assignment.
-            // TODO : print only first and the last index if the element is found
             try
             {
                 //Instantiate dictionary object
@@ -52,18 +50,10 @@ namespace Group3_Assignment1
                 numberToFind = Convert.ToInt16(Console.ReadLine());
 
                 //Call method to search dictionary for number entered. Return the string of corresponding keys
-                foundKeys = findKeys(NumberDictionary, numberToFind);
-
+                foundKeys = targetRange(NumberDictionary, numberToFind);
                 //Display results
                 Console.WriteLine();
-                if (foundKeys == "")
-                {
-                    Console.WriteLine("The number " + numberToFind + " is NOT contained in the dictionary of numbers");
-                }
-                else
-                {
-                    Console.WriteLine("The number " + numberToFind + " is contained at keys " + foundKeys + "]");
-                }
+                Console.WriteLine(foundKeys);
 
             }
             catch (Exception ex)
@@ -73,11 +63,13 @@ namespace Group3_Assignment1
             }
         }
 
-        private static string findKeys (Dictionary<int, int> NumberDictionary1, int numberToSearch)
+        private static string targetRange(Dictionary<int, int> NumberDictionary1, int numberToSearch)
         {
             //Prompt for integer 1-5
             string strKeys = "";
-            
+            int intLast = 0;
+            int intCount = 0;
+
             foreach (KeyValuePair<int, int> element in NumberDictionary1)
             {
                 if (numberToSearch == element.Value)
@@ -85,12 +77,32 @@ namespace Group3_Assignment1
                     if (strKeys == "")
                     {
                         strKeys = "[" + element.Key;
+                        intCount++;
                     }
                     else
                     {
-                        strKeys = strKeys + ", " + element.Key;
+                        intLast = element.Key;
+                        intCount++;
                     }
                 }
+            }
+                        
+            //Build return console string based on if the number exists, if it only appears once or more times in the dictionary.
+            if (strKeys == "")
+            {
+                strKeys = "The number " + numberToSearch + " is NOT contained in the dictionary of numbers";
+            }
+            else
+            {
+                if (intLast == 0)
+                {
+                    strKeys = "The number " + numberToSearch + " is contained only at key " + strKeys + "]";
+                }
+                else
+                {
+                    strKeys = "The number " + numberToSearch + " appears " + intCount + " times in the dictionary with the first and last key being " + strKeys + ", " + intLast + "]";
+                }
+                
             }
             return strKeys;
         }
@@ -201,7 +213,7 @@ namespace Group3_Assignment1
                 }
                 
                 //Display resulting string from method
-                Console.WriteLine(buildString(CharacterCountDictionary));
+                Console.WriteLine(FreqSort(CharacterCountDictionary));
             }
             catch (Exception ex)
             {
@@ -209,7 +221,7 @@ namespace Group3_Assignment1
             }
         }
 
-        private static string buildString(Dictionary<int, int> CharacterCountDictionary1)
+        private static string FreqSort(Dictionary<int, int> CharacterCountDictionary1)
         {
             string sResult = "";
             int i;
