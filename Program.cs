@@ -11,13 +11,13 @@ namespace Group3_Assignment1
         static void Main(string[] args)
         {
             Console.WriteLine("Assignment 1 from Group 3");
-            //solveQuestion1();
-            //solveQuestion2();
-            //solveQuestion3();
-            //solveQuestion4();
-            //solveQuestion5();
-            //solveQuestion6();
-            testReverse();
+            solveQuestion1();
+            solveQuestion2();
+            solveQuestion3();
+            solveQuestion4();
+            solveQuestion5();
+            solveQuestion6();
+            //testReverse();
         }
 
 
@@ -110,23 +110,36 @@ namespace Group3_Assignment1
 
         private static void solveQuestion3()
         {
-            // TODO : change to read from the console
             // ##### Start solution for Question 3
             Console.WriteLine("##### Solving Question 3");
-            int[] numberArray = { -1, -1, -1, 2, 2 }; // Sorted numbers array to work with
-            Console.Write("User array - { "); // Print the user supplied array
-            for (int i = 0; i < numberArray.Length; i++)
+            Console.WriteLine("Please input numbers of your choice seperated by comma (,) in sorted order.");
+            int[] numberArray = {}; // Sorted numbers array to work with
+            try
             {
-                Console.Write(numberArray[i]);
-                Console.Write(" ");
+                numberArray = Array.ConvertAll(Console.ReadLine().Trim().Split(','), Convert.ToInt32);
+                Console.Write("User array - { "); // Print the user supplied array
+                for (int i = 0; i < numberArray.Length; i++)
+                {
+                    Console.Write(numberArray[i]);
+                    Console.Write(" ");
+                }
+                Console.WriteLine("}");
+
+                int minimumArraySum = minSum(numberArray); // Call the method to adjust array and calculate the minimum sum
+                Console.WriteLine("Array sum is " + minimumArraySum);
+                Console.WriteLine("");
             }
-            Console.WriteLine("}");
-            minSum(numberArray); // Call the method to adjust array and calculate the minimum sum
-            Console.WriteLine("");
+            catch(Exception eX)
+            {
+                Console.WriteLine("Input should be a number array." + eX.Message);
+            }
             // ##### End solution for Question 3
         }
-        
-        private static void minSum(int[] numberArray)
+
+        // This function sequentially reads an array (size n) replacing elements if needed and  
+        // calculating the sum, both of which take contant time. 
+        // Hence the time complexity of this function is O(n).
+        public static int minSum(int[] numberArray)
         {
             int minimumArraySum = 0; // We will store the sum in this
 
@@ -153,8 +166,7 @@ namespace Group3_Assignment1
             }
             Console.WriteLine("}");
 
-            // Print the minimum sum
-            Console.WriteLine("Array sum is " + minimumArraySum);
+            return minimumArraySum;
         }
 
         private static void solveQuestion4()
@@ -270,24 +282,40 @@ namespace Group3_Assignment1
 
         private static void solveQuestion6()
         {
-            // TODO : Read from console
             // ##### Start solution for Question 6
             Console.WriteLine("##### Solving Question 6.");
-            char[] charArray = {'k','y','k','k'}; // Character array
-            int k = 1; // 
-            Console.Write("User array - { "); // Print the user supplied array
-            for (int i = 0; i < charArray.Length; i++)
+            char[] charArray = {}; // Character array
+            int k = -1; // Index to search for
+            try
             {
-                Console.Write(charArray[i]);
-                Console.Write(" ");
+                // Read the user supplied characters.
+                Console.WriteLine("Please input characters of your choice seperated by comma (,).");
+                charArray = Array.ConvertAll(Console.ReadLine().Trim().Split(','), Convert.ToChar);
+                Console.Write("User array - { "); // Print the user supplied array
+                for (int i = 0; i < charArray.Length; i++)
+                {
+                    Console.Write(charArray[i]);
+                    Console.Write(" ");
+                }
+                Console.WriteLine("}");
+
+                // Read user supplied index
+                Console.WriteLine("Please choose an array index.");
+                k = Convert.ToInt32(Console.ReadLine());
+
+                // Check for a[i] = a[j] such that (i-j) <= k
+                Console.WriteLine(new Program().ContainsDuplicate(charArray, k));
+                Console.WriteLine("");
             }
-            Console.WriteLine("}");
-            // Check for a[i] = a[j] such that (i-j) <= k
-            Console.WriteLine(new Program().ContainsDuplicate(charArray, k));
-            Console.WriteLine("");
+            catch(Exception eX)
+            {
+                Console.WriteLine("Invalid input format." + eX.Message);
+            }
             // ##### End solution for Question 6
         }
 
+        // This function sequentially reads an array (size n) and adds/removes elements from a dictionary
+        // which take contant time. Hence the time complexity of this function is O(n).
         public bool ContainsDuplicate(char[] arr, int k)
         {
             // We will hold the characters (key) with their positions (value) in the dictionary
