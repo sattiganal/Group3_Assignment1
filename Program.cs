@@ -183,7 +183,6 @@ namespace Group3_Assignment1
 
         private static void solveQuestion4()
         {
-            // TODO : Sync method name to be the same as assignment
             try
             {
                 string sStart; //Variable to hold string from user entry
