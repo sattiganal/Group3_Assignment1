@@ -109,10 +109,7 @@ namespace Group3_Assignment1
 
         private static void solveQuestion2()
         {
-
-        
-
-            //TODO : Wait for Professor's response
+                       
             Console.WriteLine("!!!!!!!!!!!!!  Solving Question#2  !!!!!!!!!!!!!!");
             Console.WriteLine("****  Please Enter a Sentence below for Reverse String Operation *****");
             string reverseString = " ";
