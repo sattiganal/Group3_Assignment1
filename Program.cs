@@ -398,7 +398,7 @@ namespace Group3_Assignment1
          */
         public static int[] Intersect1(int[] nums1, int[] nums2)    // Method declaration for Solution-1 finding array intersection
         {
-            // TODO : Since the arrays are sorted, we need to loop through the 2nd array completely
+            
             Array.Sort(nums1);                                      // Sort First array nums1
             Array.Sort(nums2);                                      // Sort Second array nums2
 
@@ -433,6 +433,9 @@ namespace Group3_Assignment1
                     compDup = 0;
                 }
 
+                if (value1 >= nums2[0])        //Check if the element of first array is greater than or equal to first element of second array, we don't need to loop if condition fails
+                {
+              
                 for (int i = 0; i < nums2.Length; i++)              // Perform this for loop operation for each element in nums2 array
                 {
                     if (value1 == nums2[i])                     // If element of first array is equal to element of second array                        
@@ -452,6 +455,7 @@ namespace Group3_Assignment1
 
                     }
 
+                }
                 }
                 prevElement = value1;
             }
