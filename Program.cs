@@ -17,7 +17,6 @@ namespace Group3_Assignment1
             solveQuestion4();
             solveQuestion5();
             solveQuestion6();
-            //testReverse();
         }
 
 
@@ -552,63 +551,6 @@ namespace Group3_Assignment1
         }
         //End of Method - Solution-2 for Question: 5
 
-
-        public static void testReverse()
-        {
-            Console.WriteLine("enter test string : ");
-            String input = Console.ReadLine();
-            String[] inputWordsArray = splitOnSpace(input);
-            char[] charsInWord = { };
-            var reversedInput = new List<string>();
-            foreach (String word in inputWordsArray)
-            {
-                charsInWord = word.ToCharArray();
-                reverseCharArray(charsInWord, 0);
-                reversedInput.Add(new String(charsInWord));
-            }
-
-            foreach(String s in reversedInput)
-            {
-                Console.Write(s);
-                Console.Write(" ");
-            }
-        }
-
-        public static String[] splitOnSpace(String sentence)
-        {
-            var wordsArray = new List<string>();
-            if (sentence.Contains(" "))
-            {
-                int prevIndex = -1;
-                for (int i = 0; i < sentence.Length; i++)
-                {
-                    if (char.IsWhiteSpace(sentence[i]))
-                    {
-                        String word = sentence.Substring(prevIndex + 1, (i - (prevIndex + 1)));
-                        wordsArray.Add(word);
-                        prevIndex = i;
-                    }
-                }
-                wordsArray.Add(sentence.Substring(prevIndex));
-            }
-            else
-            {
-                wordsArray.Add(sentence);
-            }
-            return wordsArray.ToArray();
-        }
-
-        public static void reverseCharArray(char[] charArray, int startIndex)
-        {
-            if (startIndex >= charArray.Length / 2)
-            {
-                return ;
-            }
-            char temp = charArray[startIndex];
-            charArray[startIndex] = charArray[charArray.Length - 1 - startIndex];
-            charArray[charArray.Length - 1 - startIndex] = temp;
-            reverseCharArray(charArray, ++startIndex);
-        }
     }
 
 }  
