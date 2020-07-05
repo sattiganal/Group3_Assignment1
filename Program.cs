@@ -109,14 +109,21 @@ namespace Group3_Assignment1
 
         private static void solveQuestion2()
         {
+
+        
+
             //TODO : Wait for Professor's response
             Console.WriteLine("!!!!!!!!!!!!!  Solving Question#2  !!!!!!!!!!!!!!");
             Console.WriteLine("****  Please Enter a Sentence below for Reverse String Operation *****");
             string reverseString = " ";
+            
             String inputString = Console.ReadLine();                       // Input string read from the console
+            
             Console.WriteLine("Input Entered String  : " + inputString);   // Write input string to the console 
 
+            
             reverseString = StringReverse(inputString);                   // Call custom built function to reverse the string
+            
             Console.WriteLine("Output Reverse String : " + reverseString); // Write output reverse string to the console                        
         }
 
@@ -364,26 +371,54 @@ namespace Group3_Assignment1
         public static string StringReverse(string s)             // Function declaration for performing reverse string operation
         {
 
-            String finalString = "";
-            String tempVar = "";
-            string indWord = "";
+           
+            String temp = "";   
+            string finalString = "";
+            int arraySize = 0;
 
+            for (int i= 1; i<= s.Length; i++){                               //Perform loop until for each character in the input string
+                temp =   temp + s.Substring(s.Length - i, 1);                //move characters from input string in reverse order into temp variable
+                if (s.Substring(s.Length - i, 1) == " ")               // when there is a space encounterd in the string increment arraysize variable that is used to declare array size
+                    arraySize++;                                   
+            }
+            arraySize++;                                        //increment array size variable for the last word in the sentence
 
-            string[] stringWords = s.Split(' ');         // Split the string into Array of words
+            string[] stringWord = new string[arraySize];          // Declare array with size to hold each word of the sentence
 
-            for (int i = 0; i < stringWords.Length; i++)   // Perform the loop for number of words in the string
+            int k = 0;
+            int newWordStartLoc = 0;
+            
+            for (int i = 0; i < temp.Length; i++)                //perform loop until the length of the input string
             {
-                indWord = "";
-                tempVar = stringWords[i];
-                for (int j = 0; j < stringWords[i].Length; j++)           //perform the loop for each letter in each word of the string
+               
+                if ((temp.Substring(i, 1) == " ") || (temp.Length == i + 1) )      //if a space is encountered or last word of the sentence
                 {
-                    tempVar = stringWords[i].Substring(stringWords[i].Length - j - 1, 1);   //get the letters from the end to start of the word
-                    indWord = indWord + tempVar;                                         // concatenate the letters in reverse 
+                    
+                    if ((k==0) & (temp.Length == i + 1))                        // if there is only one word in the input string
+                        stringWord[k] = temp.Substring(newWordStartLoc, i - newWordStartLoc + 1);  //format the word and assign to an array 
+                    else
+                    if (temp.Length == i + 1)                                    // if it is last word in the sentence
+                        stringWord[k] = temp.Substring(newWordStartLoc + 1 , i - newWordStartLoc );   //format the word and assign it to an array
+                    else if (k==1)                                                                     // if it is second word in the sentence
+                      stringWord[k] = temp.Substring(newWordStartLoc , i - newWordStartLoc + 1 );   //format the word and assign it to an array
+                    else
+                        stringWord[k] = temp.Substring(newWordStartLoc, i - newWordStartLoc);       //for any other word in the sentence,format the word and assign it to an array   
+
+                    if ((k == 1) & (temp.Length == i + 1))              //if there are only two words in the sentence then format the string as below
+                        finalString = stringWord[k] + " " + finalString;
+                    else
+                        finalString = stringWord[k] + finalString;
+                    newWordStartLoc = i;                                    //To identify the start location of next word
+                    
+                    k++;                                                  //increment array counter
                 }
-                finalString = finalString + indWord + " ";       //concatenate the words with reverse string above
             }
 
-            return finalString;                                 //return the reverse string to the main method
+
+
+
+
+                return finalString;                                 //return the reverse string to the main method
         }
 
         //End of Method - Solution for Question: 2
@@ -521,8 +556,9 @@ namespace Group3_Assignment1
         //End of Method - Solution-2 for Question: 5
 
 
-        private static void testReverse()
+        public static void testReverse()
         {
+            Console.WriteLine("enter test string : ");
             String input = Console.ReadLine();
             String[] inputWordsArray = splitOnSpace(input);
             char[] charsInWord = { };
