@@ -289,6 +289,7 @@ namespace Group3_Assignment1
 
             int[] intersection2 = Intersect2(nums1, nums2);        // Call solution-2 methond  by passing two arrays to determine intersection                    
 
+            
         }
 
         private static void solveQuestion6()
@@ -473,10 +474,12 @@ namespace Group3_Assignment1
         /*This algorithm follows the linear time complexity. There is one loop in this method, as the number of intersection elements increase the number
          * of times the loop increases. This is also referred as O(n).
          */
+        
         public static int[] Intersect2(int[] nums1, int[] nums2)          // Method declaration for Solution-2 finding array intersection
         {
             int k = 0;
             int outArrSize = 0;
+
 
             if (nums1.Length < nums2.Length)                          // Check for smaller size array to assign it's size to the output intersection array
             {
@@ -486,31 +489,37 @@ namespace Group3_Assignment1
                 nums1 = tempArry;
             }
             else
-                outArrSize = nums2.Length;
+                outArrSize = nums2.Length;                          //Assigns output array size equal to smallest size of the array
 
-            int[] outArr = new int[outArrSize];                       // Define output array for holding intersection elements
+            int[] outArr = new int[outArrSize];                    //Output Array is declared with size of smallest array of the two input arrays.
 
-            HashSet<int> hsnums1 = new HashSet<int>(nums1);           // Declare hashset and assign first array nums1 to it
+
+            var dictionary2 = nums2.Select((value, index) => new { index, value })         //Convert second array into Dictionary key will be the index and value will be the element
+                      .ToDictionary(pair => pair.index, pair => pair.value);
 
 
             Console.Write("Intersection from Solution-2 : [");
-            for (int i = 0; i < nums2.Length; i++)                    // Perform this for loop operation for each element in nums2 array
-                if (hsnums1.Contains(nums2[i]))
+
+            foreach (int value1 in nums1)                         //for each elment in array1 perform the loop
+            {
+                if (dictionary2.ContainsValue(value1))            //if the dictionary contains the value of array1 element 
                 {
-                    if ((i <= nums1.Length) && (k != 0))              // If i is less than first array length or not first value in output array then seperate teh element with a comma(,)
+                    if (k != 0)              // if not first value in output array then seperate the element with a comma(,)
                         Console.Write(",");
-                    Console.Write(nums2[i]);
-                    outArr[k] = nums2[i];                             // populate output array with intersection element
-                    k++;                                              // Increment the output array index number 
-                }
+                    outArr[k] = value1;           //populate output array with intersection element
+                    Console.Write(outArr[k]);     //print the intersection value to console
+                    k++;                          //increment the index of output array
+                    dictionary2.Remove(dictionary2.First(kvp => kvp.Value == value1).Key);   //remove the first occurance of the element from dictionary2 once it is processed
+                }                
+            }
+            Console.WriteLine("]");
 
-            Console.Write("]");
-
-            Array.Resize(ref outArr, k);                              // Resize the array only to the size of actual intersection elements.
+            Array.Resize(ref outArr, k);                              // Resize the array only to the size of actual intersection elements.            
             return outArr;                                            // Return output array with intersection elements
 
         }
         //End of Method - Solution-2 for Question: 5
+
 
         private static void testReverse()
         {
